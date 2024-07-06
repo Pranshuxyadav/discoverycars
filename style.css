@@ -328,7 +328,7 @@ body {
 
 
 .card img {
-    width: 95%;
+    width: 98%;
     height: 60%; /* Adjust height as needed */
     object-fit: cover; /* Ensures the image covers the div */
     border-bottom: 1px solid #ccc; /* Optional: Separates image from text */
