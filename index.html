@@ -22,101 +22,106 @@
         suggestionsContainer.appendChild(loadingIndicator);
 
         fetch('data.json')
-    .then(response => response.json())
-    .then(data => {
-        const suggestions = data.Sheet1;
+  .then(response => response.json())
+  .then(data => {
+    const suggestions = data.Sheet1;
 
-        const carsPerPage = 30;
-        const carsOnFirstPage = 6;
-        const totalCars = suggestions.length;
-        const totalPages = Math.ceil((totalCars - carsOnFirstPage) / carsPerPage) + 1;
+    // Sort cars: those with images first
+    suggestions.sort((a, b) => (a.image_url === 'No image available') - (b.image_url === 'No image available'));
 
-        function renderCars(page) {
-            suggestionsContainer.innerHTML = '<div class="cars_cards"></div>';
-            const carsCardsContainer = suggestionsContainer.querySelector('.cars_cards');
+    const carsPerPage = 30;
+    const carsOnFirstPage = 6;
+    const totalCars = suggestions.length;
+    const totalPages = Math.ceil((totalCars - carsOnFirstPage) / carsPerPage) + 1;
 
-            let start, end;
-            if (page === 1) {
-                start = 0;
-                end = carsOnFirstPage;
-            } else {
-                start = carsOnFirstPage + (page - 2) * carsPerPage;
-                end = start + carsPerPage;
-            }
+    function renderCars(page) {
+      suggestionsContainer.innerHTML = '<div class="cars_cards"></div>';
+      const carsCardsContainer = suggestionsContainer.querySelector('.cars_cards');
 
-            const carsToShow = suggestions.slice(start, end);
-            carsToShow.forEach(suggestion => {
-                const card = document.createElement('div');
-                card.classList.add('card');
+      let start, end;
+      if (page === 1) {
+        start = 0;
+        end = carsOnFirstPage;
+      } else {
+        start = carsOnFirstPage + (page - 2) * carsPerPage;
+        end = start + carsPerPage;
+      }
 
-                const img = document.createElement('img');
-                img.classList.add('imagebox');
-                img.src = suggestion['image_url'];
-                card.appendChild(img);
+      const carsToShow = suggestions.slice(start, end);
+      carsToShow.forEach(suggestion => {
+        const card = document.createElement('div');
+        card.classList.add('card');
 
-                const content = document.createElement('div');
-                content.classList.add('content');
+        const img = document.createElement('img');
+        img.classList.add('imagebox');
+        img.src = suggestion['image_url'] !== 'No image available' ? suggestion['image_url'] : 'D:\SearchCars\website\svg\no image available.jpg';
+        img.alt = suggestion['image_url'] !== 'No image available' ? suggestion['title'] : 'No image available';
+        card.appendChild(img);
 
-                const title = document.createElement('div');
-                title.classList.add('title');
-                title.textContent = suggestion['title'];
-                content.appendChild(title);
+        const content = document.createElement('div');
+        content.classList.add('content');
 
-                const dotsDetails = document.createElement('div');
-                dotsDetails.classList.add('dotsDetails');
-                dotsDetails.textContent = suggestion['details']; 
-                content.appendChild(dotsDetails);
+        const title = document.createElement('div');
+        title.classList.add('title');
+        title.textContent = suggestion['title'];
+        content.appendChild(title);
 
-                const price = document.createElement('div');
-                price.classList.add('Price');
-                price.textContent = suggestion['price'];
-                content.appendChild(price);
+        const dotsDetails = document.createElement('div');
+        dotsDetails.classList.add('dotsDetails');
+        dotsDetails.textContent = suggestion['details'];
+        content.appendChild(dotsDetails);
 
-                card.appendChild(content);
+        const price = document.createElement('div');
+        price.classList.add('Price');
+        price.textContent = suggestion['price'];
+        content.appendChild(price);
 
-                const button = document.createElement('button');
-                button.textContent = 'Buy now';
-                button.onclick = () => {
-                    window.location.href = suggestion['link'];
-                };
-                card.appendChild(button);
+        card.appendChild(content);
 
-                carsCardsContainer.appendChild(card);
-            });
-        }
+        const button = document.createElement('button');
+        button.textContent = 'Buy now';
+        button.onclick = () => {
+          window.location.href = suggestion['link'];
+        };
+        card.appendChild(button);
 
-        function renderPagination() {
-            paginationContainer.innerHTML = '';
+        carsCardsContainer.appendChild(card);
+      });
+    }
 
-            for (let i = 1; i <= totalPages; i++) {
-                const pageLink = document.createElement('a');
-                pageLink.href = '#';
-                pageLink.textContent = i;
-                pageLink.onclick = (function(i) {
-                    return function() {
-                        renderCars(i);
-                        setActivePage(i);
-                    };
-                })(i);
-                paginationContainer.appendChild(pageLink);
-            }
-        }
+    function renderPagination() {
+      paginationContainer.innerHTML = '';
 
-        function setActivePage(page) {
-            const pageLinks = paginationContainer.querySelectorAll('a');
-            pageLinks.forEach(link => link.classList.remove('active'));
-            pageLinks[page - 1].classList.add('active');
-        }
+      for (let i = 1; i <= totalPages; i++) {
+        const pageLink = document.createElement('a');
+        pageLink.href = '#';
+        pageLink.textContent = i;
+        pageLink.onclick = (function(i) {
+          return function() {
+            renderCars(i);
+            setActivePage(i);
+          };
+        })(i);
+        paginationContainer.appendChild(pageLink);
+      }
+    }
 
-        renderCars(1);
-        renderPagination();
-        setActivePage(1);
-        loadingIndicator.remove();
-    })
-    .catch(error => {
-        console.error('Error fetching or parsing data:', error);
-        loadingIndicator.textContent = 'Failed to load data.';
-    });
+    function setActivePage(page) {
+      const pageLinks = paginationContainer.querySelectorAll('a');
+      pageLinks.forEach(link => link.classList.remove('active'));
+      pageLinks[page - 1].classList.add('active');
+    }
+
+    renderCars(1);
+    renderPagination();
+    setActivePage(1);
+    loadingIndicator.remove();
+  })
+  .catch(error => {
+    console.error('Error fetching or parsing data:', error);
+    loadingIndicator.textContent = 'Failed to load data.';
+  });
+
 
       });
     </script>
