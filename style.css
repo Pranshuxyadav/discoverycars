@@ -23,7 +23,7 @@ body {
   background-position: left;
   transition-duration: 1s;
   z-index: 1;
-  left: 96%;
+  left: 94%;
   top: 90%;
 }
 
@@ -64,6 +64,7 @@ body {
 
 .logo {
     height: 12vh;
+    position: relative;
 }
 
 .logo img {
@@ -84,6 +85,7 @@ body {
 
 .nav_content {
     height: 5vh;
+    position: relative;
     display: flex;
 }
 
@@ -126,6 +128,7 @@ body {
     display: flex;
     margin-bottom: 10%;
     flex-direction: column;
+    justify-content: center;
 }
 
 .twocars {
@@ -134,7 +137,6 @@ body {
     align-items: center;
     width: fit-content; /* Adjust as needed */
     height: 100%; /* Adjust as needed */
-    margin-left: 3%;
 }
 
 .twocars img {
@@ -400,12 +402,15 @@ body {
 /*----------------------footer-------------------*/
 
 .footer {
-  
+  display: flex;
 }
 
 .footer .h1 {
   position: absolute;
     left: 5%;
+    height: fit-content;
+    width: fit-content;
+    font-size: 10px;
     
 }
 
@@ -416,6 +421,7 @@ body {
     width: fit-content;
     right: 10%;
     padding: 0;
+    height: fit-content;
 }
 
 .footer_topics li {
