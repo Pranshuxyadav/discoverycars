@@ -5,35 +5,6 @@ body {
     font-family: 'Inter' , sans-serif;
 }
 
-/* For Webkit browsers (Chrome, Safari, Edge) */
-::-webkit-scrollbar {
-  width: 12px; /* Width of the scrollbar */
-  height: 12px; /* Height of the scrollbar */
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Background of the scrollbar track */
-}
-
-::-webkit-scrollbar-thumb {
-  background: #84BADA; /* Color of the scrollbar thumb */
-  border-radius: 6px; /* Rounded corners for the scrollbar thumb */
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #84BADA; /* Color of the scrollbar thumb when hovered */
-}
-
-/* For Firefox */
-html {
-  scrollbar-width: thin; /* Thin scrollbar */
-  scrollbar-color: #84BADA #f1f1f1; /* Scrollbar thumb and track colors */
-}
-
-/* For IE and Edge */
-body {
-  -ms-overflow-style: -ms-autohiding-scrollbar;
-}
 
 
 .chatBtn {
@@ -322,21 +293,21 @@ body {
 .content .dotsDetails {
   color: rgb(0, 0, 0);
   font-weight: 500;
-  font-size: 25px;
+  font-size: 20px;
  
 }
 
 .content .Price {
   color: rgb(0, 0, 0);
   font-weight: 500;
-  font-size: 25px;
+  font-size: 20px;
   
 }
 
 .content .title {
   color: rgb(0, 0, 0);
   font-weight: 500;
-  font-size: 25px;
+  font-size: 20px;
  
 }
 
@@ -551,4 +522,66 @@ body {
 .wrapper .instagram:hover .tooltip::before {
   background: #e4405f;
   color: #fff;
+}
+
+/* For Webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+  height: 12px; /* Height of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Background of the scrollbar track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #84BADA; /* Color of the scrollbar thumb */
+  border-radius: 6px; /* Rounded corners for the scrollbar thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #84BADA; /* Color of the scrollbar thumb when hovered */
+}
+
+/* For Firefox */
+html {
+  scrollbar-width: thin; /* Thin scrollbar */
+  scrollbar-color: #84BADA #f1f1f1; /* Scrollbar thumb and track colors */
+}
+
+/* For IE and Edge */
+body {
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+/*-------------------paginatiom ------------------------------------*/
+
+.pagination {
+  margin: 15% ;
+  text-align: center;
+}
+
+.pagination a {
+  display: inline-block;
+  padding: 8px 16px;
+  margin: 0 5px;
+  background-color: #f0f0f0;
+  color: #333;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.pagination a:hover {
+  background-color: #ddd;
+}
+
+.pagination a.active {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Hide the loading indicator */
+.loading {
+  display: none;
 }
