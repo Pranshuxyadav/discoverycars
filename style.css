@@ -214,127 +214,103 @@ body {
   }
   
 
-.suggestions {
+  .suggestions {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    margin-top: 20px;
+    margin-top: 40px;
 }
 
 .sugg_text {
-  width: fit-content;
-  position: relative;
-  left: 5%;
-  
-  font-size: 30px;
-}
-.suggestions button {
-    border: none;
-    display: flex;
-    padding: 0.75rem 1.5rem;
-    background-color: #84BADA;
-    color: #ffffff;
-    font-size: 0.9rem;
-    line-height: 1rem;
-    font-weight: 700;
-    cursor: pointer;
+    width: 100%;
     text-align: center;
-    text-transform: uppercase;
-    vertical-align: middle;
-    align-items: center;
-    border-radius: 0.5rem;
-    user-select: none;
-    gap: 0.75rem;
-    box-shadow: 0 4px 6px -1px #488aec31, 0 2px 4px -1px #488aec17;
-    transition: all 0.6s ease;
-  }
-  
-  .suggestions button:hover {
-    box-shadow: 0 10px 15px -3px #488aec4f, 0 4px 6px -2px #488aec17;
-  }
-  
-  .suggestions button:focus,
-  .suggestions button:active {
-    opacity: 0.85;
-    box-shadow: none;
-  }
-  
-  .suggestions button svg {
-    width: 1.25rem;
-    height: 1.25rem;
-  }
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
 
-
-  .cars_cards {
+.cars_cards {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
-    gap: 20px; /* Increased gap for better spacing */
+    justify-content: center;
+    gap: 30px;
+    padding: 0 5%;
 }
 
-
-
 .card {
-  height: 500px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
-    width: 400px;
-    padding: 10px 1px;
-    margin: 2% ;
+    width: 350px;
+    height: auto;
+    padding: 20px;
     text-align: center;
     position: relative;
     cursor: pointer;
-    box-shadow: 0 10px 15px -3px rgba(6, 10, 14, 0.4), 0 4px 6px -4px rgba(160, 160, 160, 0.4);
-    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
     background-color: #ffffff;
-    background: rgb(223, 221, 221);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
 }
 
-.content {
-  padding: 20px;
-  display: contents;
-  gap: 10px;
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
 }
 
-.content .dotsDetails {
-  color: rgb(0, 0, 0);
-  font-weight: 500;
-  font-size: 20px;
- 
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
 }
 
-.content .Price {
-  color: rgb(0, 0, 0);
-  font-weight: 500;
-  font-size: 20px;
-  
+.card .content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
 }
 
-.content .title {
-  color: rgb(0, 0, 0);
-  font-weight: 500;
-  font-size: 20px;
- 
+.card .title {
+    color: #333;
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin: 0;
 }
 
-.cars_cards button {
-  justify-content: center;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-  border: none;
-  outline: none;
-  color: rgb(255 255 255);
-  text-transform: uppercase;
-  font-weight: 700;
-  font-size: 1.4rem;
-  padding: 0.75rem 1.5rem;
-  background-color: rgb(33 150 243);
-  border-radius: 0.5rem;
-  width: 90%;
-  text-shadow: 0px 4px 18px #2c3442;
+.card .dotsDetails {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.card .Price {
+    color: #007bff;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin: 10px 0;
+}
+
+.card button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 15px;
+}
+
+.card button:hover {
+    background-color: #0056b3;
 }
 
 
