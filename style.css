@@ -64,12 +64,12 @@ body {
 }
 
 .logo {
-  height: 12vh;
+  height: fit;
   position: relative;
 }
 
 .logo img {
-  height: 12vh;
+  height: fit-content;
   position: relative;
 }
 
