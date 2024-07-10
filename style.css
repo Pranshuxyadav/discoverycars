@@ -64,12 +64,12 @@ body {
 }
 
 .logo {
-  height: fit;
+  height: fit-content;
   position: relative;
 }
 
 .logo img {
-  height: fit-content;
+  height: 12vh;
   position: relative;
 }
 
@@ -565,20 +565,39 @@ body {
 
 /* Tablets */
 @media (max-width: 768px) {
-  .nav_content .button-container {
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
+  .chatBtn {
+      left: 90%;
+      top: 85%;
   }
 
-  .nav_content .button-container .nav_button {
-      padding: 10px;
-      font-size: 1rem;
+  .nav_content .button-container {
+      flex-direction: column;
   }
 
   .logo img, .logo_alphabet img {
       height: 8vh;
       width: auto;
+  }
+
+  .twocars img {
+      width: 80%;
+  }
+
+  .content .heading1 h1 {
+      font-size: 32px;
+  }
+
+  .btn1 button {
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+  }
+
+  .card {
+      width: 300px;
+  }
+
+  .card img {
+      height: 150px;
   }
 
   .footer_topics {
@@ -594,24 +613,22 @@ body {
 
 /* Mobile */
 @media (max-width: 480px) {
+  .chatBtn {
+      left: 85%;
+      top: 80%;
+  }
+
   .nav_content {
       flex-direction: column;
       align-items: center;
-      gap: 10px;
   }
 
-  .nav_content .button-container {
-      flex-direction: column;
-      gap: 5px;
+  .logo {
+    height: fit-content;
+    width: auto;
   }
-
-  .nav_content .button-container .nav_button {
-      padding: 8px;
-      font-size: 0.9rem;
-  }
-
   .logo img, .logo_alphabet img {
-      height: 6vh;
+      height: 3vh;
       width: auto;
   }
 
