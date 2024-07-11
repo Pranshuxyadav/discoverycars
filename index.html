@@ -11,125 +11,154 @@
         .pagination a { margin: 0 5px; text-decoration: none; }
         .hidden { display: none; }
         .loading { text-align: center; margin: 20px; }
+        .search-container {
+          display: flex;
+          align-items: center;
+        }
+
+        #searchInput {
+          padding: 10px;
+          margin-right: 5px;
+        }
+
+        #searchButton {
+          background-color: #007bff;
+          border: none;
+          padding: 10px;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+
+        #searchButton .icon {
+          fill: white;
+        }
     </style>
-   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const suggestionsContainer = document.querySelector('.suggestions');
-      const paginationContainer = document.querySelector('.pagination');
-      const loadingIndicator = document.createElement('div');
-      loadingIndicator.className = 'loading';
-      loadingIndicator.textContent = 'Loading...';
-      suggestionsContainer.appendChild(loadingIndicator);
+  <script>
+document.addEventListener('DOMContentLoaded', function() {
+  const suggestionsContainer = document.querySelector('.suggestions');
+  const paginationContainer = document.querySelector('.pagination');
+  const loadingIndicator = document.createElement('div');
+  loadingIndicator.className = 'loading';
+  loadingIndicator.textContent = 'Loading...';
+  suggestionsContainer.appendChild(loadingIndicator);
   
-      fetch('data.json')
-        .then(response => response.json())
-        .then(data => {
-          const suggestions = data.Sheet1;
-  
-          // Sort cars: those with images first
-          suggestions.sort((a, b) => (a.image_url === 'No image available') - (b.image_url === 'No image available'));
-  
-          const carsPerPage = 30;
-          const carsOnFirstPage = 6;
-          const totalCars = suggestions.length;
-          const totalPages = Math.ceil((totalCars - carsOnFirstPage) / carsPerPage) + 1;
-  
-          function renderCars(page) {
-            suggestionsContainer.innerHTML = '<div class="cars_cards"></div>';
-            const carsCardsContainer = suggestionsContainer.querySelector('.cars_cards');
-  
-            let start, end;
-            if (page === 1) {
-              start = 0;
-              end = carsOnFirstPage;
-            } else {
-              start = carsOnFirstPage + (page - 2) * carsPerPage;
-              end = start + carsPerPage;
-            }
-  
-            const carsToShow = suggestions.slice(start, end);
-            carsToShow.forEach(suggestion => {
-              const card = document.createElement('div');
-              card.classList.add('card');
-  
-              const img = document.createElement('img');
-              img.classList.add('imagebox');
-              img.src = suggestion['image_url'] !== 'No image available' ? suggestion['image_url'] : 'D:\\SearchCars\\website\\svg\\no image available.jpg';
-              img.alt = suggestion['image_url'] !== 'No image available' ? suggestion['title'] : 'No image available';
-              card.appendChild(img);
-  
-              const content = document.createElement('div');
-              content.classList.add('content');
-  
-              const title = document.createElement('div');
-              title.classList.add('title');
-              title.textContent = suggestion['title'];
-              content.appendChild(title);
-  
-              const dotsDetails = document.createElement('div');
-              dotsDetails.classList.add('dotsDetails');
-              dotsDetails.textContent = suggestion['details'];
-              content.appendChild(dotsDetails);
-  
-              const price = document.createElement('div');
-              price.classList.add('Price');
-              price.textContent = suggestion['price'];
-              content.appendChild(price);
-  
-              card.appendChild(content);
-  
-              const button = document.createElement('button');
-              button.textContent = 'Buy now';
-              button.onclick = () => {
-                window.location.href = suggestion['link'];
-              };
-              card.appendChild(button);
-  
-              carsCardsContainer.appendChild(card);
-            });
-          }
-  
-          function renderPagination() {
-            paginationContainer.innerHTML = '';
-  
-            for (let i = 1; i <= totalPages; i++) {
-              const pageLink = document.createElement('a');
-              pageLink.href = '#';
-              pageLink.textContent = i;
-              pageLink.onclick = (function(i) {
-                return function() {
-                  renderCars(i);
-                  setActivePage(i);
-                };
-              })(i);
-              paginationContainer.appendChild(pageLink);
-            }
-          }
-  
-          function setActivePage(page) {
-            const pageLinks = paginationContainer.querySelectorAll('a');
-            pageLinks.forEach(link => link.classList.remove('active'));
-            pageLinks[page - 1].classList.add('active');
-          }
-  
-          renderCars(1);
-          renderPagination();
-          setActivePage(1);
-          loadingIndicator.remove();
-        })
-        .catch(error => {
-          console.error('Error fetching or parsing data:', error);
-          loadingIndicator.textContent = 'Failed to load data.';
-        });
-  
-      // Smooth scroll to cars cards on "explore" button click
-      const exploreButton = document.getElementById('exploreButton');
-      exploreButton.addEventListener('click', function() {
-        const carsCardsContainer = document.getElementById('carsCardsContainer');
-        carsCardsContainer.scrollIntoView({ behavior: 'smooth' });
-      });
+  let carsData = [];
+
+  fetch('data.json')
+    .then(response => response.json())
+    .then(data => {
+      carsData = data.Sheet1;
+
+      carsData.sort((a, b) => (a.image_url === 'No image available') - (b.image_url === 'No image available'));
+
+      renderCars(1);
+      renderPagination();
+      setActivePage(1);
+      loadingIndicator.remove();
+    })
+    .catch(error => {
+      console.error('Error fetching or parsing data:', error);
+      loadingIndicator.textContent = 'Failed to load data.';
     });
-  </script>
+
+  const carsPerPage = 30;
+  const carsOnFirstPage = 6;
+
+  function renderCars(page, cars = carsData) {
+    suggestionsContainer.innerHTML = '<div class="cars_cards"></div>';
+    const carsCardsContainer = suggestionsContainer.querySelector('.cars_cards');
+
+    let start, end;
+    if (page === 1) {
+      start = 0;
+      end = carsOnFirstPage;
+    } else {
+      start = carsOnFirstPage + (page - 2) * carsPerPage;
+      end = start + carsPerPage;
+    }
+
+    const carsToShow = cars.slice(start, end);
+    carsToShow.forEach(suggestion => {
+      const card = document.createElement('div');
+      card.classList.add('card');
+
+      const img = document.createElement('img');
+      img.classList.add('imagebox');
+      img.src = suggestion['image_url'] !== 'No image available' ? suggestion['image_url'] : 'D:\\SearchCars\\website\\svg\\no image available.jpg';
+      img.alt = suggestion['image_url'] !== 'No image available' ? suggestion['title'] : 'No image available';
+      card.appendChild(img);
+
+      const content = document.createElement('div');
+      content.classList.add('content');
+
+      const title = document.createElement('div');
+      title.classList.add('title');
+      title.textContent = suggestion['title'];
+      content.appendChild(title);
+
+      const dotsDetails = document.createElement('div');
+      dotsDetails.classList.add('dotsDetails');
+      dotsDetails.textContent = suggestion['details'];
+      content.appendChild(dotsDetails);
+
+      const price = document.createElement('div');
+      price.classList.add('Price');
+      price.textContent = suggestion['price'];
+      content.appendChild(price);
+
+      card.appendChild(content);
+
+      const button = document.createElement('button');
+      button.textContent = 'Buy now';
+      button.onclick = () => {
+        window.location.href = suggestion['link'];
+      };
+      card.appendChild(button);
+
+      carsCardsContainer.appendChild(card);
+    });
+  }
+
+  function renderPagination(totalPages = Math.ceil((carsData.length - carsOnFirstPage) / carsPerPage) + 1) {
+    paginationContainer.innerHTML = '';
+
+    for (let i = 1; i <= totalPages; i++) {
+      const pageLink = document.createElement('a');
+      pageLink.href = '#';
+      pageLink.textContent = i;
+      pageLink.onclick = (function(i) {
+        return function() {
+          renderCars(i);
+          setActivePage(i);
+        };
+      })(i);
+      paginationContainer.appendChild(pageLink);
+    }
+  }
+
+  function setActivePage(page) {
+    const pageLinks = paginationContainer.querySelectorAll('a');
+    pageLinks.forEach(link => link.classList.remove('active'));
+    pageLinks[page - 1].classList.add('active');
+  }
+
+  document.getElementById('searchButton').addEventListener('click', function() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    const filteredCars = carsData.filter(car => car.title.toLowerCase().includes(query));
+    renderCars(1, filteredCars);
+    renderPagination(Math.ceil((filteredCars.length - carsOnFirstPage) / carsPerPage) + 1);
+    setActivePage(1);
+
+    // Scroll to search results
+    document.getElementById('carsCardsContainer').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  document.getElementById('exploreButton').addEventListener('click', function() {
+    const carsCardsContainer = document.getElementById('carsCardsContainer');
+    carsCardsContainer.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>
   
 </head>
 <body>
@@ -142,12 +171,36 @@
        
         <div class="nav_content">
             <div class="button-container">
-              <div class="logo"> <img src="website/logo/SearchCar/SearchCar (2).png" alt="discoverycars logo">
+              <div class="logo"> <img src="website/logo/SearchCar/png1.png" alt="discoverycars logo">
               </div>
-              <div class="logo_alphabet"><img src="website/logo/SearchCar/3 resize.png">
+              <div class="logo_alphabet"><img src="website/logo/SearchCar/png2.png">
               </div>
+              
               <div class="bttn_rectangle">
+                <div class="search-container">
+                  <input type="text" id="searchInput" placeholder="Search by model...">
+                  <button id="searchButton" class="button">
+                    <svg
+                      class="icon"
+                      stroke="currentColor"
+                      fill="none"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                      height="1em"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                      ></path>
+                    </svg>
+                  </button>
+              </div>
                 <button class="button">
+                  
                   <svg
                     class="icon"
                     stroke="currentColor"
@@ -163,25 +216,7 @@
                     ></path>
                   </svg>
                 </button>
-                <button class="button">
-                  <svg
-                    class="icon"
-                    stroke="currentColor"
-                    fill="none"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                    height="1em"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                    ></path>
-                  </svg>
-                </button>
+                
                 <button class="button">
                   <svg
                     class="icon"
