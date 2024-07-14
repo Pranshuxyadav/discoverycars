@@ -404,6 +404,33 @@ body {
   color: #2c3442;
 }
 
+.car-card { border: 1px solid #ccc; padding: 10px; margin: 10px; }
+        .pagination { margin: 20px; text-align: center; }
+        .pagination a { margin: 0 5px; text-decoration: none; }
+        .hidden { display: none; }
+        .loading { text-align: center; margin: 20px; }
+        .search-container {
+          display: flex;
+          align-items: center;
+        }
+
+        #searchInput {
+          padding: 10px;
+          margin-right: 5px;
+        }
+
+        #searchButton {
+          background-color: #007bff;
+          border: none;
+          padding: 10px;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+
+        #searchButton .icon {
+          fill: white;
+        }
+
 /*----------------------footer-------------------*/
 
 .footer {
