@@ -97,6 +97,7 @@ body {
     flex-direction: row;
     width: fit-content;
   }
+
   
   .nav_content .button-container {
     display: flex;
@@ -128,6 +129,7 @@ body {
   
   .nav_content .icon {
     font-size: 20px;
+    fill: white;
   }
   
   .search-container {
