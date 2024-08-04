@@ -196,7 +196,7 @@ body {
 .btn1 {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 2%;
 }
 
 .btn1 button {
@@ -397,6 +397,53 @@ body {
 
 .web_logo img {
   width: 110%;
+}
+
+.btn_showmore {
+  display: flex;
+  justify-content: center;
+  margin-top: 2%;
+}
+
+.btn_showmore a {
+  text-decoration: none; /* Add this to remove underline */
+}
+
+.btn_showmore button {
+  border: none;
+  display: flex;
+  padding: 0.75rem 1.5rem;
+  background-color: #84BADA;
+  color: #ffffff;
+  font-size: 1.5rem;
+  line-height: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  text-transform: uppercase;
+  vertical-align: middle;
+  align-items: center;
+  border-radius: 0.5rem;
+  user-select: none;
+  gap: 0.75rem;
+  box-shadow: 0 4px 6px -1px #488aec31, 0 2px 4px -1px #488aec17;
+  transition: all 0.6s ease;
+}
+
+.btn_showmore button:hover {
+  box-shadow: 0 10px 15px -3px #488aec4f, 0 4px 6px -2px #488aec17;
+}
+
+.btn_showmore button:focus,
+.btn_showmore button:active {
+  opacity: 0.85;
+  box-shadow: none;
+  text-decoration: none;
+}
+
+.btn_showmore button svg {
+  width: 1.25rem;
+  height: 1.25rem;
 }
 
 .pagination {
