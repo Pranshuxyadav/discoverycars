@@ -26,8 +26,8 @@
             carsData.sort((a, b) => (a.image_url === 'No image available') - (b.image_url === 'No image available'));
       
             renderCars(1);
-            renderPagination();
-            setActivePage(1);
+           // renderPagination();
+            //setActivePage(1);
             loadingIndicator.remove();
           })
           .catch(error => {
@@ -35,8 +35,8 @@
             loadingIndicator.textContent = 'Failed to load data.';
           });
       
-        const carsPerPage = 30;
-        const carsOnFirstPage = 6;
+        const carsPerPage = 20;
+        const carsOnFirstPage = 4;
       
         function renderCars(page, cars = carsData) {
           suggestionsContainer.innerHTML = '<div class="cars_cards"></div>';
@@ -316,7 +316,13 @@
      <div class="sugg_text">Suggestions</div>
 
     
-            <div id="carsCardsContainer" class="suggestions"></div>
+            <div id="carsCardsContainer" class="suggestions">
+            </div>
+            <div class="btn_showmore"> 
+              <a href="dc_verified.html">
+              <button id="show_more_Button">show more</button>
+            </a>
+            </div>
             <div class="pagination"></div>
       
     </div>
