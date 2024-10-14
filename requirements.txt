@@ -33,7 +33,7 @@ idna==3.7
 itsdangerous==2.2.0
 Jinja2==3.1.4
 lockfile==0.12.2
-python-3.10.10
+python-3.12.7
 lxml==5.2.2
 MarkupSafe==2.1.5
 multidict==6.0.5
