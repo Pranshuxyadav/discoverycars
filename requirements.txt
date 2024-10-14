@@ -33,6 +33,7 @@ idna==3.7
 itsdangerous==2.2.0
 Jinja2==3.1.4
 lockfile==0.12.2
+logging==0.4.9.6
 lxml==5.2.2
 MarkupSafe==2.1.5
 multidict==6.0.5
@@ -79,6 +80,7 @@ typing_extensions==4.12.2
 tzdata==2024.1
 uritemplate==4.1.1
 urllib3==2.2.2
+webdriver_manager
 websocket-client==1.8.0
 Werkzeug==3.0.4
 wsproto==1.2.0
